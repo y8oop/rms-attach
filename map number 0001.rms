@@ -1,0 +1,231 @@
+
+<PLAYER_SETUP>
+random_placement
+nomad_resources
+
+<LAND_GENERATION>
+base_terrain GRASS
+create_land
+{
+	terrain_type SHALLOW
+	top_border 37
+	bottom_border 37
+	right_border 37
+	left_border 37
+}
+create_player_lands
+{
+	base_terrain BEACH
+	land_percent 12
+	top_border 45
+	bottom_border 45
+	right_border 45
+	left_border 45
+}
+
+
+
+
+<OBJECTS_GENERATION>
+
+create_object VILLAGER
+{
+	set_place_for_every_player
+	min_distance_to_players 6
+	max_distance_to_players 6
+}
+
+create_object WATCH_TOWER
+{
+  set_place_for_every_player
+  group_placement_radius     1
+  min_distance_to_players    0
+  max_distance_to_players    0
+  }
+  create_object MARKET
+{
+  set_place_for_every_player
+  group_placement_radius     1
+  min_distance_to_players    0
+  max_distance_to_players    0
+}
+create_object BARRACKS
+{
+  set_place_for_every_player
+  group_placement_radius     1
+  min_distance_to_players    0
+  max_distance_to_players    0
+}
+
+create_object HOUSE
+{
+  set_place_for_every_player
+  group_placement_radius     1
+  min_distance_to_players    0
+  max_distance_to_players    0
+}
+
+
+create_object SCOUT
+{
+  set_place_for_every_player
+  min_distance_to_players       3
+  max_distance_to_players       4
+ }
+ 
+
+ 
+if REGICIDE
+
+create_object KING
+{
+set_place_for_every_player
+min_distance_to_players 6
+max_distance_to_players 7
+}
+create_object    SPEARMAN
+{
+set_place_for_every_player
+min_distance_to_players 6
+max_distance_to_players 7
+}
+create_object VILLAGER
+{
+  number_of_objects             7
+  set_place_for_every_player
+  min_distance_to_players       6
+  max_distance_to_players       6
+}
+
+endif
+
+ create_object RELIC
+{
+	number_of_objects				1
+	min_distance_to_players			5
+	max_distance_to_players 			7
+	temp_min_distance_group_placement 5
+	set_scaling_to_map_size
+} 
+
+create_object OAKTREE
+{
+  set_place_for_every_player
+  group_placement_radius     1
+  number_of_groups          5
+	number_of_objects 1
+  set_gaia_object_only
+    min_distance_to_players    5
+  max_distance_to_players    10
+} 
+
+
+
+if DEATH_MATCH
+else
+create_object TURKEY
+{
+	number_of_objects 2
+	number_of_groups 50
+	set_gaia_object_only
+	set_loose_grouping
+	temp_min_distance_group_placement 10
+	terrain_to_place_on GRASS
+}
+
+
+create_object BOAR /* outer */
+{
+	number_of_objects 3
+	number_of_groups 2
+	set_scaling_to_map_size
+	set_loose_grouping
+	set_gaia_object_only
+	min_distance_group_placement 15
+	temp_min_distance_group_placement 30
+	max_distance_to_other_zones 7
+	terrain_to_place_on DIRT
+}
+create_object DEER /* outer */
+{
+	number_of_objects 5
+	number_of_groups 4
+	set_scaling_to_map_size
+	set_loose_grouping
+	set_gaia_object_only
+	min_distance_group_placement 15
+	temp_min_distance_group_placement 30
+	max_distance_to_other_zones 7
+	terrain_to_place_on DIRT
+}
+endif
+
+
+create_object GOLD /* extra */
+{
+	number_of_objects 3
+	number_of_groups 13
+	group_varience 1
+	set_tight_grouping
+	group_placement_radius 3
+	set_gaia_object_only
+	set_scaling_to_map_size
+	min_distance_group_placement 3
+	temp_min_distance_group_placement 20
+	min_distance_to_players 30
+}
+create_object STONE /* extra */
+{
+	number_of_objects 2
+	number_of_groups 9
+	group_varience 1
+	set_tight_grouping
+	group_placement_radius 3
+	set_gaia_object_only
+	set_scaling_to_map_size
+	min_distance_group_placement 3
+	temp_min_distance_group_placement 20
+	min_distance_to_players 30
+}
+
+create_object BOAR
+{
+  number_of_objects          2
+  set_loose_grouping
+  set_gaia_object_only
+  set_place_for_every_player
+  min_distance_to_players    30
+  max_distance_to_players    35
+  min_distance_group_placement  3
+  start_random
+ percent_chance  7 resource_delta rnd(-99,0)
+ percent_chance 25 resource_delta rnd(-50,0)
+ percent_chance 40 #define KF_NOTHING
+ percent_chance 25 resource_delta rnd(0,500)
+ percent_chance  3 resource_delta rnd(500,30000)
+end_random
+}
+
+create_object OAKTREE
+{
+  set_place_for_every_player
+  group_placement_radius     1
+  number_of_groups          6
+	number_of_objects 1
+	set_tight_grouping
+  set_gaia_object_only
+  set_scaling_to_map_size
+    min_distance_to_players    20
+  max_distance_to_players    150
+} 
+
+
+if GRASS_TILE
+   create_object OAKTREE
+elseif TROPICAL_TILE
+   create_object JUNGLE_TREE
+elseif SNOW_TILE
+   create_object SNOW_PINE_TREE
+elseif DESERT_TILE
+   create_object PALMTREE
+endif

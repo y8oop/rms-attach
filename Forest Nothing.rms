@@ -1,0 +1,58 @@
+
+/* ****************************************************** */
+/* ******************** Forest   ************************ */
+/* ****************************************************** */
+
+#define LANDMAP
+#define NO_CLIFFS
+
+/* ****************************************************** */
+<PLAYER_SETUP>
+random_placement
+
+/* ****************************************************** */
+<LAND_GENERATION>
+base_terrain FOREST
+
+create_player_lands
+{
+	terrain_type	LEAVES
+	set_zone_by_team
+  border_fuzziness                 1
+  land_percent                     0
+  base_size                       1
+}
+
+/* ****************************************************** */
+
+/* ****************************************************** */
+<OBJECTS_GENERATION>
+
+create_object TOWN_CENTER
+{
+  set_place_for_every_player
+  group_placement_radius     1
+  min_distance_to_players    0
+  max_distance_to_players    0
+}
+
+create_object VILLAGER
+{
+  set_place_for_every_player
+  min_distance_to_players       1
+  max_distance_to_players       1
+ }
+
+create_object VILLAGER
+{
+  set_place_for_every_player
+  min_distance_to_players       1
+  max_distance_to_players       1
+ }
+create_object VILLAGER
+{
+  set_place_for_every_player
+  min_distance_to_players       1
+  max_distance_to_players       1
+ }
+/* ****************************************************** */

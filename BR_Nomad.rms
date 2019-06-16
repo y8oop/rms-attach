@@ -1,0 +1,755 @@
+/* BR_Nomad.rms */
+
+/* ************************************ */
+/* ********** Battle Royale *********** */
+/* ********** Nomad for AOC *********** */
+/* ************************************ */
+/* ***** Made by HenkDeSuperNerd ****** */
+/* ************************************ */
+
+/* more info: https://www.aoezone.net/threads/aoe2-battle-royale.147826/ */
+
+
+/* INSTRUCTIONS */
+
+/* This map requires UserPatch 1.5 */
+/* This map does NOT require WololoKingdoms */
+/* The maps are perfectly suited for King of the Hill or Regicide */
+/* The map supports regicide as part of the script, which can be combined with other gamemodes (such as KOTH+Regicide) */
+
+/* to select regicide as part of the script, select LOW_RESOURCES in the gameroom */
+/* The maps work on any size, but it is highly recommended to adjust the size to the number of players */
+
+
+/* MECHANICS */
+
+/* In the Battle Royale Random maps, explosions will flatten anything. The explosions start at 30 minutes and will start damaging stuff at the map's edges. */
+/* every 10 minutes the explosions will creep towards the middle, leaving only a small middle area as a safe zone. */
+/* This will force the players to move towards the middle, where they will face each others */
+/* The explosions will advance at 0:30:00, 0:40:00, 0:50:00, 1:00:00, 1:10:00, and 1:20:00 game time */
+
+
+/* THE MAP AND RESOURCES */
+
+/* each of the BRR maps has a nomad start */
+/* The maps have an abuncance of gold and stone piles, forage bushes and clusters of sheep. */
+/* There are many relics (scaling on player numbers), but NO HUNT (sorry mongols) */
+/* Hunters gathering speed is set to 0, so don't bother to gather from the animals at the map's edges */
+/* eventhough there are plenty of natural resources around, keep in mind that the players will */ 
+/* lose access to those when the danger zone creeps towards the middle. */
+
+
+#const ATTR_SET 0
+#const ATTR_ADD 1
+
+#const SET_ATTRIBUTE 0
+#const ADD_ATTRIBUTE 4
+#const MUL_ATTRIBUTE 5
+
+#const ATTR_HITPOINTS 0
+#const ATTR_ATTACK 9
+#const ATTR_RESOURCE_CARRY 14
+#const ATTR_STORAGE_VALUE 21
+#const ATTR_BLAST_RADIUS 22
+#const ATTR_HERO_STATUS 40
+#const ATTR_BLAST_LEVEL 44
+#const ATTR_DEAD_ID 57
+
+/* regicide stuff (select low resources) */
+	#const MOD_RESOURCE 1
+	#const AMOUNT_GOLD 3
+	#const AMOUNT_STARTING_FOOD 91
+	#const AMOUNT_STARTING_WOOD 92
+	#const AMOUNT_STARTING_STONE 93
+	#const AMOUNT_STARTING_GOLD 94
+
+/*  ANIMALS */
+#const SHEEP 814 
+
+/* timers */
+
+#const FAKE_DEER 333
+#const HUNTING_WOLF 700
+#const ORNLU_THE_WOLF 707
+#const TURKEY 833
+#const DEER 65
+#const JAGUAR 812   
+	
+/* exploders */
+#const DIRE_WOLF 89 
+#const WOLF 126 
+#const RABID_WOLF 202 
+#const IRON_BOAR 810 
+#const BOAR 48
+#const JAVELINA 822 
+
+/* disable hunters */
+	#const VILLAGER_HUNTER_M 122
+	#const VILLAGER_HUNTER_F 216
+
+
+
+if REGICIDE
+#define KINGGAME
+else
+	if LOW_RESOURCES
+	#define KINGGAME	
+	#define GUARDSTATE
+	endif
+endif
+
+
+<PLAYER_SETUP>
+
+random_placement
+nomad_resources
+ai_info_map_type NOMAD 1 0 1
+
+/* disable hunter workrate */
+	effect_amount SET_ATTRIBUTE VILLAGER_HUNTER_M ATTR_WORK_RATE 0
+	effect_amount SET_ATTRIBUTE VILLAGER_HUNTER_F ATTR_WORK_RATE 0
+
+/* regicide stuff */	
+if GUARDSTATE
+		effect_amount MOD_RESOURCE AMOUNT_STARTING_WOOD ATTR_ADD 300
+		effect_amount MOD_RESOURCE AMOUNT_STARTING_FOOD ATTR_ADD 300
+		effect_amount MOD_RESOURCE AMOUNT_STARTING_GOLD ATTR_ADD -100
+		effect_amount MOD_RESOURCE AMOUNT_STARTING_STONE ATTR_ADD -50	
+		guard_state KING AMOUNT_GOLD 0 1
+endif
+
+/* spies + treason with regicide */
+if KINGGAME	
+	effect_amount GAIA_SET_PLAYER_DATA DATA_MODE_FLAGS ATTR_SET 3		
+endif
+	
+/* timers (predators decay 1food/2secs and other hunt decays 1food/4secs) */
+
+/* 30min */
+	effect_amount SET_ATTRIBUTE FAKE_DEER ATTR_DEAD_ID 89	
+	effect_amount SET_ATTRIBUTE FAKE_DEER ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE FAKE_DEER ATTR_STORAGE_VALUE 450		
+	effect_amount SET_ATTRIBUTE FAKE_DEER ATTR_ATTACK 4
+
+/* 40min */	
+	effect_amount SET_ATTRIBUTE HUNTING_WOLF ATTR_DEAD_ID 126	
+	effect_amount SET_ATTRIBUTE HUNTING_WOLF ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE HUNTING_WOLF ATTR_STORAGE_VALUE 1200	
+	effect_amount SET_ATTRIBUTE HUNTING_WOLF ATTR_ATTACK 8
+	effect_amount SET_ATTRIBUTE HUNTING_WOLF ATTR_ATTACK 257
+	effect_amount SET_ATTRIBUTE HUNTING_WOLF ATTR_ATTACK 513
+
+/* 50min */	
+	effect_amount SET_ATTRIBUTE ORNLU_THE_WOLF ATTR_DEAD_ID 202	
+	effect_amount SET_ATTRIBUTE ORNLU_THE_WOLF ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE ORNLU_THE_WOLF ATTR_STORAGE_VALUE 1500
+	effect_amount SET_ATTRIBUTE ORNLU_THE_WOLF ATTR_ATTACK 14	
+
+/* 60min */	
+	effect_amount SET_ATTRIBUTE TURKEY ATTR_DEAD_ID 810	
+	effect_amount SET_ATTRIBUTE TURKEY ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE TURKEY ATTR_STORAGE_VALUE 900	
+	effect_amount SET_ATTRIBUTE TURKEY ATTR_ATTACK 20	
+
+/* 70min */	
+	effect_amount SET_ATTRIBUTE DEER ATTR_DEAD_ID 48	
+	effect_amount SET_ATTRIBUTE DEER ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE DEER ATTR_STORAGE_VALUE 1050	
+	effect_amount SET_ATTRIBUTE DEER ATTR_ATTACK 30	
+
+/* 80min */	
+	effect_amount SET_ATTRIBUTE JAGUAR ATTR_DEAD_ID 822	
+	effect_amount SET_ATTRIBUTE JAGUAR ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE JAGUAR ATTR_STORAGE_VALUE 2400			
+	effect_amount SET_ATTRIBUTE JAGUAR ATTR_ATTACK 50
+	
+/* exploders */	
+/* splash radius optimized for 8 players map */
+
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_HERO_STATUS 32 
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_RESOURCE_CARRY 1
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_STORAGE_VALUE 10	
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_DEAD_ID 89	
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_ATTACK 4	
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_BLAST_LEVEL 1
+if TINY_MAP	
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_BLAST_RADIUS 14	
+elseif SMALL_MAP
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_BLAST_RADIUS 15	
+elseif MEDIUM_MAP
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_BLAST_RADIUS 20	
+elseif LARGE_MAP
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_BLAST_RADIUS 25	
+elseif HUGE_MAP
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_BLAST_RADIUS 30		
+elseif GIGANTIC_MAP
+	effect_amount SET_ATTRIBUTE DIRE_WOLF ATTR_BLAST_RADIUS 30	
+endif
+	
+	effect_amount SET_ATTRIBUTE WOLF ATTR_HERO_STATUS 32 
+	effect_amount SET_ATTRIBUTE WOLF ATTR_RESOURCE_CARRY 1
+	effect_amount SET_ATTRIBUTE WOLF ATTR_STORAGE_VALUE 10	
+	effect_amount SET_ATTRIBUTE WOLF ATTR_DEAD_ID 126	
+	effect_amount SET_ATTRIBUTE WOLF ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE WOLF ATTR_ATTACK 8		
+	effect_amount SET_ATTRIBUTE WOLF ATTR_BLAST_LEVEL 1	
+if TINY_MAP		
+	effect_amount SET_ATTRIBUTE WOLF ATTR_BLAST_RADIUS 20	
+elseif SMALL_MAP	
+	effect_amount SET_ATTRIBUTE WOLF ATTR_BLAST_RADIUS 22
+elseif MEDIUM_MAP
+	effect_amount SET_ATTRIBUTE WOLF ATTR_BLAST_RADIUS 28	
+elseif LARGE_MAP
+	effect_amount SET_ATTRIBUTE WOLF ATTR_BLAST_RADIUS 35	
+elseif HUGE_MAP
+	effect_amount SET_ATTRIBUTE WOLF ATTR_BLAST_RADIUS 42		
+elseif GIGANTIC_MAP
+	effect_amount SET_ATTRIBUTE WOLF ATTR_BLAST_RADIUS 44	
+endif	
+
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_HERO_STATUS 32 
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_RESOURCE_CARRY 1
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_STORAGE_VALUE 10	
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_DEAD_ID 202	
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_ATTACK 14		
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_BLAST_LEVEL 1
+if TINY_MAP	
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_BLAST_RADIUS 26	
+elseif SMALL_MAP	
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_BLAST_RADIUS 29
+elseif MEDIUM_MAP
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_BLAST_RADIUS 36	
+elseif LARGE_MAP
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_BLAST_RADIUS 45	
+elseif HUGE_MAP
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_BLAST_RADIUS 54		
+elseif GIGANTIC_MAP
+	effect_amount SET_ATTRIBUTE RABID_WOLF ATTR_BLAST_RADIUS 58	
+endif
+
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_HERO_STATUS 32 
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_RESOURCE_CARRY 1
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_STORAGE_VALUE 5	
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_DEAD_ID 810	
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_ATTACK 20	
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_BLAST_LEVEL 1	
+if TINY_MAP	
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_BLAST_RADIUS 32	
+elseif SMALL_MAP
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_BLAST_RADIUS 36	
+elseif MEDIUM_MAP
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_BLAST_RADIUS 44	
+elseif LARGE_MAP
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_BLAST_RADIUS 55	
+elseif HUGE_MAP
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_BLAST_RADIUS 66		
+elseif GIGANTIC_MAP
+	effect_amount SET_ATTRIBUTE IRON_BOAR ATTR_BLAST_RADIUS 72	
+endif	
+
+	
+	effect_amount SET_ATTRIBUTE BOAR ATTR_HERO_STATUS 32 
+	effect_amount SET_ATTRIBUTE BOAR ATTR_RESOURCE_CARRY 1
+	effect_amount SET_ATTRIBUTE BOAR ATTR_STORAGE_VALUE 5	
+	effect_amount SET_ATTRIBUTE BOAR ATTR_DEAD_ID 48	
+	effect_amount SET_ATTRIBUTE BOAR ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE BOAR ATTR_ATTACK 30
+	effect_amount SET_ATTRIBUTE BOAR ATTR_ATTACK 257
+	effect_amount SET_ATTRIBUTE BOAR ATTR_ATTACK 513	
+	effect_amount SET_ATTRIBUTE BOAR ATTR_BLAST_LEVEL 1	
+if TINY_MAP	
+	effect_amount SET_ATTRIBUTE BOAR ATTR_BLAST_RADIUS 38	
+elseif SMALL_MAP
+	effect_amount SET_ATTRIBUTE BOAR ATTR_BLAST_RADIUS 43	
+elseif MEDIUM_MAP
+	effect_amount SET_ATTRIBUTE BOAR ATTR_BLAST_RADIUS 52	
+elseif LARGE_MAP
+	effect_amount SET_ATTRIBUTE BOAR ATTR_BLAST_RADIUS 65	
+elseif HUGE_MAP
+	effect_amount SET_ATTRIBUTE BOAR ATTR_BLAST_RADIUS 78		
+elseif GIGANTIC_MAP
+	effect_amount SET_ATTRIBUTE BOAR ATTR_BLAST_RADIUS 86	
+endif	
+
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_HERO_STATUS 32 
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_RESOURCE_CARRY 1
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_STORAGE_VALUE 5	
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_DEAD_ID 822	
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_HITPOINTS 0	
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_ATTACK 50		
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_BLAST_LEVEL 1
+if TINY_MAP	
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_BLAST_RADIUS 44	
+elseif SMALL_MAP
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_BLAST_RADIUS 50	
+elseif MEDIUM_MAP
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_BLAST_RADIUS 60	
+elseif LARGE_MAP
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_BLAST_RADIUS 75	
+elseif HUGE_MAP
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_BLAST_RADIUS 90		
+elseif GIGANTIC_MAP
+	effect_amount SET_ATTRIBUTE JAVELINA ATTR_BLAST_RADIUS 100	
+endif	
+		
+
+<LAND_GENERATION>
+
+base_terrain SHALLOW
+
+create_land 
+{
+terrain_type WATER
+land_percent 100
+base_size 1
+if TINY_MAP
+top_border 6
+bottom_border 6
+left_border 6
+right_border 6
+elseif SMALL_MAP
+top_border 5
+bottom_border 5
+left_border 5
+right_border 5
+elseif MEDIUM_MAP
+top_border 5
+bottom_border 5
+left_border 5
+right_border 5
+else
+top_border 4
+bottom_border 4
+left_border 4
+right_border 4
+endif
+zone 1
+border_fuzziness 99
+land_position 8 8
+}
+
+create_player_lands 
+{
+terrain_type GRASS
+land_percent 47
+base_size 12
+if TINY_MAP
+top_border 14
+bottom_border 14
+left_border 14
+right_border 14
+elseif SMALL_MAP
+top_border 12
+bottom_border 12
+left_border 12
+right_border 12
+else
+top_border 11
+bottom_border 11
+left_border 11
+right_border 11
+endif
+zone 1
+clumping_factor 25
+land_position 50 50
+border_fuzziness 25
+
+}
+
+
+<TERRAIN_GENERATION>
+
+create_terrain DESERT
+{
+base_terrain SHALLOW
+if TINY_MAP
+spacing_to_other_terrain_types 3
+elseif SMALL_MAP
+spacing_to_other_terrain_types 3
+elseif GIGANTIC_MAP
+spacing_to_other_terrain_types 5
+else
+spacing_to_other_terrain_types 4
+endif
+land_percent 99
+number_of_clumps 99   
+set_scale_by_groups
+}
+
+create_terrain FOREST
+{
+base_terrain GRASS
+spacing_to_other_terrain_types 4
+land_percent 5
+number_of_clumps 10
+set_avoid_player_start_areas     
+set_scale_by_groups
+clumping_factor 25
+}
+
+create_terrain PINE_FOREST
+{
+base_terrain GRASS
+spacing_to_other_terrain_types 4
+land_percent 1
+number_of_clumps 4
+set_avoid_player_start_areas     
+set_scale_by_groups
+clumping_factor 25
+}
+
+create_terrain MED_WATER
+{
+base_terrain WATER
+number_of_clumps 999
+spacing_to_other_terrain_types 2
+land_percent 100
+}
+
+<OBJECTS_GENERATION>
+/* timers */
+create_object FAKE_DEER
+{
+number_of_objects 999
+terrain_to_place_on DESERT
+set_gaia_object_only
+temp_min_distance_group_placement 2
+}
+
+create_object HUNTING_WOLF
+{
+number_of_objects 999
+terrain_to_place_on DESERT
+set_gaia_object_only
+temp_min_distance_group_placement 2
+}
+
+create_object ORNLU_THE_WOLF
+{
+number_of_objects 999
+terrain_to_place_on DESERT
+set_gaia_object_only
+temp_min_distance_group_placement 2
+}
+
+create_object TURKEY
+{
+number_of_objects 999
+terrain_to_place_on DESERT
+set_gaia_object_only
+temp_min_distance_group_placement 2
+}
+
+create_object DEER
+{
+number_of_objects 999
+terrain_to_place_on DESERT
+set_gaia_object_only
+temp_min_distance_group_placement 2
+}
+
+create_object JAGUAR
+{
+number_of_objects 999
+terrain_to_place_on DESERT
+set_gaia_object_only
+temp_min_distance_group_placement 2
+}
+
+
+/* resources */
+
+
+create_object RELIC
+{
+number_of_objects 2
+set_place_for_every_player
+set_gaia_object_only
+min_distance_to_players 5
+temp_min_distance_group_placement 18
+terrain_to_place_on GRASS
+}
+
+create_object OAKTREE
+{
+number_of_objects 45
+temp_min_distance_group_placement 12
+terrain_to_place_on GRASS
+}
+
+
+create_object SHEEP
+{
+number_of_objects 4
+number_of_groups 5
+group_placement_radius 3
+set_loose_grouping
+set_gaia_object_only
+set_scaling_to_map_size
+temp_min_distance_group_placement 20
+terrain_to_place_on GRASS
+}
+
+create_object SHEEP
+{
+number_of_objects 2
+number_of_groups 5
+group_placement_radius 3
+set_loose_grouping
+set_gaia_object_only
+set_scaling_to_map_size
+temp_min_distance_group_placement 20
+terrain_to_place_on GRASS
+}
+
+/* no hunt left for resources, so increased number of berries and sheep */
+
+/*
+create_object BOAR
+{
+number_of_objects 1
+number_of_groups 5
+set_loose_grouping
+set_gaia_object_only
+set_scaling_to_map_size
+temp_min_distance_group_placement 28
+terrain_to_place_on GRASS
+}
+
+create_object DEER
+{
+number_of_objects 3
+number_of_groups 3
+group_placement_radius 3
+set_loose_grouping
+set_gaia_object_only
+set_scaling_to_map_size
+temp_min_distance_group_placement 32
+terrain_to_place_on GRASS
+}
+
+*/
+
+create_object FORAGE
+{
+number_of_objects 5
+number_of_groups 6
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+set_scaling_to_map_size
+temp_min_distance_group_placement 25
+min_distance_group_placement 8
+terrain_to_place_on GRASS
+max_distance_to_other_zones 5
+}
+
+create_object GOLD
+{
+number_of_objects 6
+number_of_groups 4
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+set_scaling_to_map_size
+temp_min_distance_group_placement 18
+min_distance_group_placement 8
+terrain_to_place_on GRASS
+max_distance_to_other_zones 5
+}
+
+
+create_object STONE
+{
+number_of_objects 4
+number_of_groups 3
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+set_scaling_to_map_size
+temp_min_distance_group_placement 21
+min_distance_group_placement 8
+terrain_to_place_on GRASS
+max_distance_to_other_zones 5
+}
+
+create_object GOLD
+{
+number_of_objects 4
+number_of_groups 3
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+set_scaling_to_map_size
+temp_min_distance_group_placement 18
+min_distance_group_placement 8
+terrain_to_place_on GRASS
+max_distance_to_other_zones 5
+}
+
+create_object STONE
+{
+number_of_objects 3
+number_of_groups 3
+group_placement_radius 3
+set_tight_grouping
+set_gaia_object_only
+set_scaling_to_map_size
+temp_min_distance_group_placement 21
+min_distance_group_placement 8
+terrain_to_place_on GRASS
+max_distance_to_other_zones 5
+}
+
+create_object SHORE_FISH
+{
+number_of_objects 30
+set_scaling_to_map_size
+set_gaia_object_only
+temp_min_distance_group_placement 5
+min_distance_group_placement 4
+terrain_to_place_on WATER
+}
+
+create_object DORADO
+{
+number_of_objects 12
+set_scaling_to_map_size
+set_gaia_object_only
+temp_min_distance_group_placement 7
+min_distance_group_placement 4
+terrain_to_place_on MED_WATER
+}
+
+create_object SALMON
+{
+number_of_objects 12
+set_scaling_to_map_size
+set_gaia_object_only
+temp_min_distance_group_placement 8
+min_distance_group_placement 5
+terrain_to_place_on MED_WATER
+}
+
+create_object MARLIN1
+{
+number_of_objects 8
+set_scaling_to_map_size
+set_gaia_object_only
+temp_min_distance_group_placement 9
+min_distance_group_placement 6
+terrain_to_place_on MED_WATER
+}
+
+create_object VILLAGER
+{
+set_place_for_every_player
+if TINY_MAP
+temp_min_distance_group_placement 10
+min_distance_to_players 5
+max_distance_to_players 30
+else
+temp_min_distance_group_placement 15
+min_distance_to_players 10
+max_distance_to_players 40
+endif
+min_distance_group_placement 3
+terrain_to_place_on GRASS
+}
+
+if KINGGAME
+create_object VILLAGER
+{
+number_of_groups 7
+number_of_objects 1
+set_place_for_every_player
+temp_min_distance_group_placement 15
+min_distance_group_placement 3
+min_distance_to_players 10
+max_distance_to_players 40
+terrain_to_place_on GRASS
+}
+
+create_object HOUSE
+{
+number_of_groups 2
+set_place_for_every_player
+max_distance_to_players 20
+terrain_to_place_on DIRT
+min_distance_group_placement 2
+temp_min_distance_group_placement 12
+}
+
+create_object KING
+{
+set_place_for_every_player
+max_distance_to_players 20
+terrain_to_place_on GRASS
+}
+endif
+
+<ELEVATION_GENERATION>
+
+create_elevation 7
+{
+base_terrain GRASS
+number_of_clumps 7
+number_of_tiles 1000
+set_scale_by_groups
+set_scale_by_size           
+}
+
+<CONNECTION_GENERATION>
+
+create_connect_all_players_land
+{
+replace_terrain WATER BEACH
+replace_terrain MED_WATER BEACH
+replace_terrain DEEP_WATER BEACH
+replace_terrain SHALLOW GRASS
+replace_terrain DESERT GRASS
+replace_terrain BEACH GRASS
+terrain_cost DESERT 1
+terrain_cost WATER 6
+terrain_cost MED_WATER 7
+terrain_cost DEEP_WATER 15
+terrain_cost FOREST 7
+terrain_cost PINE_FOREST 7
+terrain_cost PALM_DESERT 7
+terrain_cost SNOW_FOREST 7
+terrain_cost JUNGLE 7
+terrain_cost SHALLOW 2
+terrain_cost DIRT 2
+terrain_cost DIRT2 2
+terrain_cost DIRT3 2
+terrain_cost DIRT_SNOW 2
+terrain_cost GRASS 3
+terrain_cost GRASS2 2
+terrain_cost GRASS3 2
+terrain_cost GRASS_SNOW 2
+terrain_cost SNOW 2
+terrain_cost BEACH 4
+terrain_size DESERT 6 1
+terrain_size SHALLOW 6 1
+terrain_size BEACH 4 1
+terrain_size WATER 2 1
+terrain_size MED_WATER 2 1
+terrain_size DEEP_WATER 2 1  
+terrain_size GRASS 0 0
+terrain_size GRASS2 0 0
+terrain_size GRASS3 0 0
+terrain_size GRASS_SNOW 0 0
+terrain_size SNOW 0 0
+terrain_size DIRT 0 0
+terrain_size DIRT2 0 0
+terrain_size DIRT3 0 0
+terrain_size DIRT_SNOW 0 0
+terrain_size SNOW_FOREST 0 0
+terrain_size FOREST 0 0
+terrain_size PINE_FOREST 0 0
+terrain_size PALM_DESERT 0 0
+terrain_size JUNGLE 0 0
+}

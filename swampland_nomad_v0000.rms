@@ -1,0 +1,1288 @@
+/* ************************************************************************** */
+<PLAYER_SETUP>
+
+random_placement
+nomad_resources
+ai_info_map_type CUSTOM 1 0 0
+
+/* ************************************************************************** */
+<LAND_GENERATION>
+
+base_terrain DIRT
+
+/* swamp and edge */
+
+create_land
+{
+    terrain_type                            SHALLOW
+    land_percent                            70
+    
+    if TINY_MAP
+        left_border                         20
+        right_border                        20
+        top_border                          20
+        bottom_border                       20 
+    elseif SMALL_MAP
+        left_border                         19
+        right_border                        19
+        top_border                          19
+        bottom_border                       19 
+    elseif MEDIUM_MAP
+        left_border                         18
+        right_border                        18
+        top_border                          18
+        bottom_border                       18   
+    elseif LARGE_MAP
+        left_border                         17
+        right_border                        17
+        top_border                          17
+        bottom_border                       17 
+    elseif HUGE_MAP
+        left_border                         16
+        right_border                        16
+        top_border                          16
+        bottom_border                       16 
+    elseif GIGANTIC_MAP
+        left_border                         15
+        right_border                        15
+        top_border                          15
+        bottom_border                       15 
+    elseif LUDIKRIS_MAP
+        left_border                         12
+        right_border                        12
+        top_border                          12
+        bottom_border                       12  
+    endif
+    
+    border_fuzziness                        10
+    other_zone_avoidance_distance           0
+    zone                                    2
+}
+
+create_player_lands
+{
+    terrain_type                            DIRT
+    land_percent                            0
+    zone                                    1
+}
+
+/* ************************************************************************** */
+<TERRAIN_GENERATION>
+
+/* swamp */
+
+create_terrain                              GRASS
+{
+    base_terrain                            SHALLOW
+    spacing_to_other_terrain_types          1
+    land_percent                            10
+
+    if TINY_MAP
+        number_of_clumps                    6
+    elseif SMALL_MAP
+        number_of_clumps                    9
+    elseif MEDIUM_MAP
+        number_of_clumps                    12
+    elseif LARGE_MAP
+        number_of_clumps                    15
+    elseif HUGE_MAP
+        number_of_clumps                    18
+    elseif GIGANTIC_MAP
+        number_of_clumps                    21
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    27
+    endif
+}
+
+create_terrain                              LEAVES
+{
+    base_terrain                            SHALLOW
+    spacing_to_other_terrain_types          1
+    land_percent                            10
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif
+}
+
+create_terrain                              GRASS2
+{
+    base_terrain                            SHALLOW
+    spacing_to_other_terrain_types          1
+    land_percent                            10
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif
+}
+
+create_terrain                              WATER
+{
+    base_terrain                            SHALLOW
+    spacing_to_other_terrain_types          1
+    land_percent                            4
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif
+}
+
+create_terrain                              DESERT
+{
+    base_terrain                            SHALLOW
+    spacing_to_other_terrain_types          0
+    land_percent                            5
+
+    if TINY_MAP
+        number_of_clumps                    6
+    elseif SMALL_MAP
+        number_of_clumps                    9
+    elseif MEDIUM_MAP
+        number_of_clumps                    12
+    elseif LARGE_MAP
+        number_of_clumps                    15
+    elseif HUGE_MAP
+        number_of_clumps                    18
+    elseif GIGANTIC_MAP
+        number_of_clumps                    21
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    27
+    endif
+
+}
+
+/* trees at the swamp */
+
+create_terrain                              JUNGLE
+{
+    base_terrain                            LEAVES
+    land_percent                            1
+    spacing_to_other_terrain_types          4
+     
+    if TINY_MAP
+        number_of_clumps                    2
+    elseif SMALL_MAP
+        number_of_clumps                    3
+    elseif MEDIUM_MAP
+        number_of_clumps                    4
+    elseif LARGE_MAP
+        number_of_clumps                    5
+    elseif HUGE_MAP
+        number_of_clumps                    6
+    elseif GIGANTIC_MAP
+        number_of_clumps                    7
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    9
+    endif
+}
+
+create_terrain                              JUNGLE
+{
+    base_terrain                            LEAVES
+    land_percent                            2
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif
+}
+
+create_terrain                              JUNGLE
+{
+    base_terrain                            GRASS
+    land_percent                            1
+    spacing_to_other_terrain_types          4
+     
+    if TINY_MAP
+        number_of_clumps                    2
+    elseif SMALL_MAP
+        number_of_clumps                    3
+    elseif MEDIUM_MAP
+        number_of_clumps                    4
+    elseif LARGE_MAP
+        number_of_clumps                    5
+    elseif HUGE_MAP
+        number_of_clumps                    6
+    elseif GIGANTIC_MAP
+        number_of_clumps                    7
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    9
+    endif
+}
+
+create_terrain                              JUNGLE
+{
+    base_terrain                            GRASS
+    land_percent                            2
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif
+}
+
+create_terrain                              PALM_DESERT
+{
+    base_terrain                            GRASS
+    land_percent                            1
+    spacing_to_other_terrain_types          4
+     
+    if TINY_MAP
+        number_of_clumps                    2
+    elseif SMALL_MAP
+        number_of_clumps                    3
+    elseif MEDIUM_MAP
+        number_of_clumps                    4
+    elseif LARGE_MAP
+        number_of_clumps                    5
+    elseif HUGE_MAP
+        number_of_clumps                    6
+    elseif GIGANTIC_MAP
+        number_of_clumps                    7
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    9
+    endif
+}
+
+create_terrain                              PALM_DESERT
+{
+    base_terrain                            GRASS
+    land_percent                            2
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif
+}
+
+create_terrain                              PALM_DESERT
+{
+    base_terrain                            DESERT
+    land_percent                            1
+    spacing_to_other_terrain_types          1
+     
+    if TINY_MAP
+        number_of_clumps                    2
+    elseif SMALL_MAP
+        number_of_clumps                    3
+    elseif MEDIUM_MAP
+        number_of_clumps                    4
+    elseif LARGE_MAP
+        number_of_clumps                    5
+    elseif HUGE_MAP
+        number_of_clumps                    6
+    elseif GIGANTIC_MAP
+        number_of_clumps                    7
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    9
+    endif
+}
+
+create_terrain                              PALM_DESERT
+{
+    base_terrain                            DESERT
+    land_percent                            1
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif
+}
+
+create_terrain                              JUNGLE
+{
+    base_terrain                            GRASS2
+    land_percent                            1
+    spacing_to_other_terrain_types          4
+     
+    if TINY_MAP
+        number_of_clumps                    2
+    elseif SMALL_MAP
+        number_of_clumps                    3
+    elseif MEDIUM_MAP
+        number_of_clumps                    4
+    elseif LARGE_MAP
+        number_of_clumps                    5
+    elseif HUGE_MAP
+        number_of_clumps                    6
+    elseif GIGANTIC_MAP
+        number_of_clumps                    7
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    9
+    endif
+}
+
+create_terrain                              JUNGLE
+{
+    base_terrain                            GRASS2
+    land_percent                            2
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif
+}
+
+
+/* overwrites */
+
+create_terrain                              MED_WATER
+{
+    base_terrain                            WATER
+    spacing_to_other_terrain_types          2
+    land_percent                            1
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif
+}
+
+create_terrain                              GRASS2
+{
+    base_terrain                            GRASS
+    land_percent                            1
+
+    if TINY_MAP
+        number_of_clumps                    2
+    elseif SMALL_MAP
+        number_of_clumps                    3
+    elseif MEDIUM_MAP
+        number_of_clumps                    4
+    elseif LARGE_MAP
+        number_of_clumps                    5
+    elseif HUGE_MAP
+        number_of_clumps                    6
+    elseif GIGANTIC_MAP
+        number_of_clumps                    7
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    9
+    endif
+}
+
+create_terrain                              LEAVES
+{
+    base_terrain                            GRASS
+    land_percent                            1
+
+    if TINY_MAP
+        number_of_clumps                    2
+    elseif SMALL_MAP
+        number_of_clumps                    3
+    elseif MEDIUM_MAP
+        number_of_clumps                    4
+    elseif LARGE_MAP
+        number_of_clumps                    5
+    elseif HUGE_MAP
+        number_of_clumps                    6
+    elseif GIGANTIC_MAP
+        number_of_clumps                    7
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    9
+    endif
+}
+
+/* edge */
+
+create_terrain                              GRASS
+{
+    base_terrain                            DIRT
+    land_percent                            30
+
+    if TINY_MAP
+        number_of_clumps                    8
+    elseif SMALL_MAP
+        number_of_clumps                    12
+    elseif MEDIUM_MAP
+        number_of_clumps                    16
+    elseif LARGE_MAP
+        number_of_clumps                    20
+    elseif HUGE_MAP
+        number_of_clumps                    24
+    elseif GIGANTIC_MAP
+        number_of_clumps                    28
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    36
+    endif
+}
+
+create_terrain                              PALM_DESERT
+{
+    base_terrain                            DIRT
+    spacing_to_other_terrain_types          3
+    land_percent                            4
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif  
+}
+
+create_terrain                              DESERT
+{
+    base_terrain                            DIRT
+    spacing_to_other_terrain_types          1
+    land_percent                            4
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif  
+}
+
+create_terrain                              PALM_DESERT
+{
+    base_terrain                            DESERT
+    spacing_to_other_terrain_types          1
+    land_percent                            2
+
+    if TINY_MAP
+        number_of_clumps                    4
+    elseif SMALL_MAP
+        number_of_clumps                    6
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+    elseif LARGE_MAP
+        number_of_clumps                    10
+    elseif HUGE_MAP
+        number_of_clumps                    12
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+    endif  
+}
+
+create_terrain                              FOREST
+{
+    base_terrain                            GRASS
+    spacing_to_other_terrain_types          3
+    land_percent                            4
+
+    if TINY_MAP
+        number_of_clumps                    6
+    elseif SMALL_MAP
+        number_of_clumps                    9
+    elseif MEDIUM_MAP
+        number_of_clumps                    12
+    elseif LARGE_MAP
+        number_of_clumps                    15
+    elseif HUGE_MAP
+        number_of_clumps                    18
+    elseif GIGANTIC_MAP
+        number_of_clumps                    21
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    27
+    endif
+}
+
+create_terrain                              JUNGLE
+{
+    base_terrain                            GRASS
+    spacing_to_other_terrain_types          3
+    land_percent                            3
+
+    if TINY_MAP
+        number_of_clumps                    6
+    elseif SMALL_MAP
+        number_of_clumps                    9
+    elseif MEDIUM_MAP
+        number_of_clumps                    12
+    elseif LARGE_MAP
+        number_of_clumps                    15
+    elseif HUGE_MAP
+        number_of_clumps                    18
+    elseif GIGANTIC_MAP
+        number_of_clumps                    21
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    27
+    endif
+}
+
+create_terrain                              GRASS3
+{
+    base_terrain                            DIRT
+    spacing_to_other_terrain_types          1
+    land_percent                            2
+
+    if TINY_MAP
+        number_of_clumps                    8
+    elseif SMALL_MAP
+        number_of_clumps                    12
+    elseif MEDIUM_MAP
+        number_of_clumps                    16
+    elseif LARGE_MAP
+        number_of_clumps                    20
+    elseif HUGE_MAP
+        number_of_clumps                    24
+    elseif GIGANTIC_MAP
+        number_of_clumps                    28
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    34
+    endif
+}
+
+create_terrain                              GRASS3
+{
+    base_terrain                            GRASS
+    spacing_to_other_terrain_types          1
+    land_percent                            2
+
+    if TINY_MAP
+        number_of_clumps                    8
+    elseif SMALL_MAP
+        number_of_clumps                    12
+    elseif MEDIUM_MAP
+        number_of_clumps                    16
+    elseif LARGE_MAP
+        number_of_clumps                    20
+    elseif HUGE_MAP
+        number_of_clumps                    24
+    elseif GIGANTIC_MAP
+        number_of_clumps                    28
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    34
+    endif
+
+}
+
+create_terrain                              FOREST
+{
+    base_terrain                            GRASS3
+    spacing_to_other_terrain_types          1
+    land_percent                            2
+
+    if TINY_MAP
+        number_of_clumps                    6
+    elseif SMALL_MAP
+        number_of_clumps                    9
+    elseif MEDIUM_MAP
+        number_of_clumps                    12
+    elseif LARGE_MAP
+        number_of_clumps                    15
+    elseif HUGE_MAP
+        number_of_clumps                    18
+    elseif GIGANTIC_MAP
+        number_of_clumps                    21
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    27
+    endif
+}
+
+/* ************************************************************************** */
+<ELEVATION_GENERATION>
+
+create_elevation                            3
+{
+    base_terrain                            DIRT
+    if TINY_MAP
+        number_of_clumps                    4
+        number_of_tiles                     1400   
+    elseif SMALL_MAP
+        number_of_clumps                    6
+        number_of_tiles                     2100   
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+        number_of_tiles                     2800   
+    elseif LARGE_MAP
+        number_of_clumps                    10
+        number_of_tiles                     4000
+    elseif HUGE_MAP
+        number_of_clumps                    12
+        number_of_tiles                     4800 
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+        number_of_tiles                     5800   
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+        number_of_tiles                     23000   
+    endif  
+}
+
+create_elevation                            5
+{
+    base_terrain                            DIRT
+    if TINY_MAP
+        number_of_clumps                    4
+        number_of_tiles                     98   
+    elseif SMALL_MAP
+        number_of_clumps                    6
+        number_of_tiles                     147   
+    elseif MEDIUM_MAP
+        number_of_clumps                    8
+        number_of_tiles                     196   
+    elseif LARGE_MAP
+        number_of_clumps                    10
+        number_of_tiles                     280
+    elseif HUGE_MAP
+        number_of_clumps                    12
+        number_of_tiles                     336 
+    elseif GIGANTIC_MAP
+        number_of_clumps                    14
+        number_of_tiles                     406
+    elseif LUDIKRIS_MAP
+        number_of_clumps                    18
+        number_of_tiles                     1610  
+    endif  
+}
+
+
+/* ************************************************************************** */
+/* <CLIFF_GENERATION> */
+
+
+/* ************************************************************************** */
+<OBJECTS_GENERATION>
+
+/* PLAYER START OBJECTS */
+
+create_object VILLAGER
+{
+    set_place_for_every_player
+    temp_min_distance_to_players            30
+}
+
+/* SPECIAL STUFF FOR REGICIDE */
+
+if REGICIDE
+    create_object                           KING
+    {
+        set_place_for_every_player
+        temp_min_distance_to_players        30
+    }
+endif
+
+create_object                               SHEEP
+{
+    number_of_objects                       4
+    number_of_groups                        1
+    set_loose_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    max_distance_to_other_zones             7
+}
+
+create_object                               SHEEP
+{
+    number_of_objects                       2
+    number_of_groups                        2
+    set_loose_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    max_distance_to_other_zones             7
+}
+
+create_object                               BOAR
+{
+    number_of_objects                       1
+    number_of_groups                        1
+    set_loose_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    max_distance_to_other_zones             7
+}
+
+create_object                               BOAR
+{
+    number_of_objects                       1
+    number_of_groups                        1
+    set_loose_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    max_distance_to_other_zones             7
+}
+
+create_object                               GOLD
+{
+    number_of_objects                       5
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_group_placement            7
+    max_distance_to_other_zones             7
+}
+
+create_object                               GOLD
+{
+    number_of_objects                       3
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_group_placement            7
+    max_distance_to_other_zones             7
+}
+
+
+create_object                               STONE
+{
+    number_of_objects                       4
+    group_placement_radius                  2
+    set_tight_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_group_placement            7
+    max_distance_to_other_zones             7
+}
+
+create_object                               STONE
+{
+    number_of_objects                       3
+    number_of_groups                        1
+    group_placement_radius                  2
+    set_tight_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_group_placement            7
+    max_distance_to_other_zones             7
+}
+
+create_object                               FORAGE
+{
+    number_of_objects                       6
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    set_place_for_every_player
+    min_distance_group_placement            6
+    max_distance_to_other_zones             7
+}
+
+create_object                               PALMTREE
+{
+    number_of_objects                       30
+    set_gaia_object_only
+    set_scaling_to_map_size
+    min_distance_to_players                 8
+}
+
+create_object                               DORADO
+{
+    number_of_objects                       4
+    set_scaling_to_map_size
+    set_gaia_object_only
+    min_distance_group_placement            4
+}
+
+create_object                               SNAPPER
+{
+    number_of_objects                       4
+    set_scaling_to_map_size
+    min_distance_group_placement            4
+}
+
+create_object                               SHORE_FISH
+{
+    number_of_objects                       30
+    set_scaling_to_map_size
+    min_distance_group_placement            4
+    set_gaia_object_only
+}
+
+create_object                               RELIC
+{
+    number_of_objects                       5
+    min_distance_group_placement            15
+    temp_min_distance_group_placement       20
+}
+
+create_object                               GOLD
+{
+    if TINY_MAP
+        number_of_groups                    4
+    elseif SMALL_MAP
+        number_of_groups                    6
+    elseif MEDIUM_MAP
+        number_of_groups                    8
+    elseif LARGE_MAP
+        number_of_groups                    10
+    elseif HUGE_MAP
+        number_of_groups                    12
+    elseif GIGANTIC_MAP
+        number_of_groups                    14
+    elseif LUDIKRIS_MAP
+        number_of_groups                    18
+    endif
+    number_of_objects                       5
+    group_variance                          2
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_group_placement            6
+    place_on_specific_land_id		    2
+}
+
+create_object                               GOLD
+{
+    if TINY_MAP
+        number_of_groups                    2
+    elseif SMALL_MAP
+        number_of_groups                    3
+    elseif MEDIUM_MAP
+        number_of_groups                    4
+    elseif LARGE_MAP
+        number_of_groups                    5
+    elseif HUGE_MAP
+        number_of_groups                    6
+    elseif GIGANTIC_MAP
+        number_of_groups                    7
+    elseif LUDIKRIS_MAP
+        number_of_groups                    9
+    endif
+    
+    start_random
+        percent_chance                      20
+            number_of_objects               4
+        percent_chance                      35
+            number_of_objects               5
+        percent_chance                      30
+            number_of_objects               6
+        percent_chance                      15
+            number_of_objects               7
+    end_random
+
+    group_variance                          0
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_group_placement            7
+    terrain_to_place_on                     GRASS2
+}
+
+create_object                               GOLD
+{
+    if TINY_MAP
+        number_of_groups                    2
+    elseif SMALL_MAP
+        number_of_groups                    3
+    elseif MEDIUM_MAP
+        number_of_groups                    4
+    elseif LARGE_MAP
+        number_of_groups                    5
+    elseif HUGE_MAP
+        number_of_groups                    6
+    elseif GIGANTIC_MAP
+        number_of_groups                    7
+    elseif LUDIKRIS_MAP
+        number_of_groups                    9
+    endif
+    
+    start_random
+        percent_chance                      20
+            number_of_objects               4
+        percent_chance                      35
+            number_of_objects               5
+        percent_chance                      30
+            number_of_objects               6
+        percent_chance                      15
+            number_of_objects               7
+    end_random
+
+    group_variance                          0
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_group_placement            7
+    terrain_to_place_on                     LEAVES
+}
+
+create_object                               STONE
+{
+    if TINY_MAP
+        number_of_groups                    2
+    elseif SMALL_MAP
+        number_of_groups                    3
+    elseif MEDIUM_MAP
+        number_of_groups                    4
+    elseif LARGE_MAP
+        number_of_groups                    5
+    elseif HUGE_MAP
+        number_of_groups                    6
+    elseif GIGANTIC_MAP
+        number_of_groups                    7
+    elseif LUDIKRIS_MAP
+        number_of_groups                    9
+    endif
+    
+    start_random
+        percent_chance                      10
+            number_of_objects               3
+        percent_chance                      40
+            number_of_objects               4
+        percent_chance                      40
+            number_of_objects               5
+        percent_chance                      10
+            number_of_objects               6
+    end_random
+
+    group_variance                          0
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_group_placement            7
+    terrain_to_place_on                     GRASS2
+}
+
+create_object                               STONE
+{
+    if TINY_MAP
+        number_of_groups                    2
+    elseif SMALL_MAP
+        number_of_groups                    3
+    elseif MEDIUM_MAP
+        number_of_groups                    4
+    elseif LARGE_MAP
+        number_of_groups                    5
+    elseif HUGE_MAP
+        number_of_groups                    6
+    elseif GIGANTIC_MAP
+        number_of_groups                    7
+    elseif LUDIKRIS_MAP
+        number_of_groups                    9
+    endif
+    
+    start_random
+        percent_chance                      10
+            number_of_objects               3
+        percent_chance                      40
+            number_of_objects               4
+        percent_chance                      40
+            number_of_objects               5
+        percent_chance                      10
+            number_of_objects               6
+    end_random
+
+    group_variance                          0
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_group_placement            7
+    terrain_to_place_on                     LEAVES
+}
+
+create_object                               GOLD
+{
+    if TINY_MAP
+        number_of_groups                    2
+    elseif SMALL_MAP
+        number_of_groups                    3
+    elseif MEDIUM_MAP
+        number_of_groups                    4
+    elseif LARGE_MAP
+        number_of_groups                    5
+    elseif HUGE_MAP
+        number_of_groups                    6
+    elseif GIGANTIC_MAP
+        number_of_groups                    7
+    elseif LUDIKRIS_MAP
+        number_of_groups                    9
+    endif
+    
+    start_random
+        percent_chance                      50
+            number_of_objects               2
+        percent_chance                      50
+            number_of_objects               3
+    end_random
+    
+    group_variance                          0
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_group_placement            30
+    terrain_to_place_on                     GRASS
+}
+
+create_object                               STONE
+{
+    if TINY_MAP
+        number_of_groups                    2
+    elseif SMALL_MAP
+        number_of_groups                    3
+    elseif MEDIUM_MAP
+        number_of_groups                    4
+    elseif LARGE_MAP
+        number_of_groups                    5
+    elseif HUGE_MAP
+        number_of_groups                    6
+    elseif GIGANTIC_MAP
+        number_of_groups                    7
+    elseif LUDIKRIS_MAP
+        number_of_groups                    9
+    endif
+    
+    start_random
+        percent_chance                      50
+            number_of_objects               2
+        percent_chance                      50
+            number_of_objects               3
+    end_random
+
+    group_variance                          0
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_group_placement            30
+    terrain_to_place_on                     GRASS
+}
+
+create_object                               FORAGE
+{
+    if TINY_MAP
+        number_of_groups                    2
+    elseif SMALL_MAP
+        number_of_groups                    3
+    elseif MEDIUM_MAP
+        number_of_groups                    4
+    elseif LARGE_MAP
+        number_of_groups                    5
+    elseif HUGE_MAP
+        number_of_groups                    6
+    elseif GIGANTIC_MAP
+        number_of_groups                    7
+    elseif LUDIKRIS_MAP
+        number_of_groups                    9
+    endif
+    
+    start_random
+        percent_chance                      40
+            number_of_objects               6
+        percent_chance                      40
+            number_of_objects               7
+        percent_chance                      30
+            number_of_objects               8
+    end_random
+
+    group_variance                          0
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_group_placement            4
+    terrain_to_place_on                     GRASS2
+}
+
+create_object                               FORAGE
+{
+    if TINY_MAP
+        number_of_groups                    2
+    elseif SMALL_MAP
+        number_of_groups                    3
+    elseif MEDIUM_MAP
+        number_of_groups                    4
+    elseif LARGE_MAP
+        number_of_groups                    5
+    elseif HUGE_MAP
+        number_of_groups                    6
+    elseif GIGANTIC_MAP
+        number_of_groups                    7
+    elseif LUDIKRIS_MAP
+        number_of_groups                    9
+    endif
+    
+    start_random
+        percent_chance                      40
+            number_of_objects               6
+        percent_chance                      40
+            number_of_objects               7
+        percent_chance                      30
+            number_of_objects               8
+    end_random
+
+    group_variance                          0
+    group_placement_radius                  3
+    set_tight_grouping
+    set_gaia_object_only
+    min_distance_group_placement            4
+    terrain_to_place_on                     LEAVES
+}
+
+create_object                               DEER
+{
+    if TINY_MAP
+        number_of_groups                    6
+    elseif SMALL_MAP
+        number_of_groups                    9
+    elseif MEDIUM_MAP
+        number_of_groups                    12
+    elseif LARGE_MAP
+        number_of_groups                    15
+    elseif HUGE_MAP
+        number_of_groups                    18
+    elseif GIGANTIC_MAP
+        number_of_groups                    21
+    elseif LUDIKRIS_MAP
+        number_of_groups                    27
+    endif
+
+    start_random
+        percent_chance                      40
+            number_of_objects               4
+        percent_chance                      40
+            number_of_objects               5
+        percent_chance                      30
+            number_of_objects               6
+    end_random
+
+    group_variance                          0
+    group_placement_radius                  2
+    set_gaia_object_only
+    set_loose_grouping
+    min_distance_group_placement            15
+}
+
+create_object                               BOAR
+{
+    if TINY_MAP
+        number_of_groups                    2
+    elseif SMALL_MAP
+        number_of_groups                    3
+    elseif MEDIUM_MAP
+        number_of_groups                    4
+    elseif LARGE_MAP
+        number_of_groups                    5
+    elseif HUGE_MAP
+        number_of_groups                    6
+    elseif GIGANTIC_MAP
+        number_of_groups                    7
+    elseif LUDIKRIS_MAP
+        number_of_groups                    9
+    endif
+
+    number_of_objects                       1
+    group_variance                          0
+    group_placement_radius                  2
+    set_gaia_object_only
+    set_loose_grouping
+    min_distance_group_placement            30
+}
+
+create_object                               HAWK
+{
+    number_of_objects			    2
+    set_scaling_to_map_size
+}
